@@ -1,0 +1,36 @@
+//Code
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const port = 3005;
+app.use(bodyParser.urlencoded({ extended: true }));
+// Predefined users (In real-world applications, this would come from a database)
+const users = {
+  username: 'admin',
+  password: 'password123'
+};
+
+// Serve the login form
+app.get('/', (req, res) => {
+  res.send(`
+<form method="POST" action="/login">
+<label for="username">Username:</label>
+<input type="text" id="username" name="username" required><br><br>
+<label for="password">Password:</label>
+<input type="password" id="password" name="password" required><br><br>
+<button type="submit">Login</button>
+</form>
+  `);
+});
+// Handle login POST request
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === users.username && password === users.password) {
+    res.send('Login successful!');
+  } else {
+    res.send('Invalid credentials');
+  }
+});
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
+});
