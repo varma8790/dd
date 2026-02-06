@@ -1,0 +1,53 @@
+
+const fs = require('fs');
+// File path
+const filePath = 'C:/Users/VAAGDEVI/Desktop/sample.txt';
+// 1. Write to a file
+console.log('Starting file write...');
+fs.writeFile(filePath, 'Hello, Node.js file operations!', (err) => {
+  if (err) {
+    console.log('Error writing to file:', err);
+    return;
+  }
+  console.log('File written successfully.');
+
+  // 2. Read from the file
+  console.log('Reading file...');
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.log('Error reading from file:', err);
+      return;
+    }
+    console.log('File content:', data);
+
+     //3. Append to the file
+    console.log('Appending to file...');
+    fs.appendFile(filePath, '\nAppended text.', (err) => {
+      if (err) {
+        console.log('Error appending to file:', err);
+        return;
+      }
+      console.log('Text appended successfully.');
+
+       //4. Read the file again to see the changes
+      console.log('Reading updated file...');
+      fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+          console.log('Error reading from file:', err);
+          return;
+        }
+        console.log('Updated file content:', data);
+
+        //5. Delete the file
+        console.log('Deleting file...');
+       fs.unlink(filePath, (err) => {
+         if (err) {
+            console.log('Error deleting the file:', err);
+            return;
+          }
+          console.log('File deleted successfully.');
+        });
+      });
+    });
+  });
+});
